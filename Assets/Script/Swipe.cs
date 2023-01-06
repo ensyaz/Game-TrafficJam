@@ -19,6 +19,8 @@ public class Swipe : MonoBehaviour
         HandleDirection();
     }
 
+    
+
     void InitiateSwipe()
     {
         tap = swipeLeft = swipeRight = swipeUp = swipeDown = false;
@@ -65,10 +67,19 @@ public class Swipe : MonoBehaviour
             {
                 // Left or Right
                 if (x < 0)
+                {
                     swipeLeft = true;
-
+                    Actions.OnPlayerMove(-1);
+                }
+                    
+                
+                   
                 else
+                {
                     swipeRight = true;
+                    Actions.OnPlayerMove(-1);
+                }
+                    
             }
 
             else

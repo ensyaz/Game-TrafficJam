@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,16 +14,17 @@ public class CameraFollow : MonoBehaviour
     Vector3 desiredPosition;
     Vector3 smoothedPosition;
 
-    void FixedUpdate()
-    {
-        trackCamera();
-    }
-
     void trackCamera()
     {
         desiredPosition = target.position + offset;
         smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         transform.position = smoothedPosition;
         transform.LookAt(target);
+    }
+
+    private void LateUpdate()
+    {
+        trackCamera();
+
     }
 }

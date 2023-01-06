@@ -8,8 +8,8 @@ public class Movement : MonoBehaviour
     Vector3 direction = new Vector3(0, 0, 5);
 
     float rotationSpeed = 0.1f;
-    float jumpingHeight = 10f;
-    float speed = 50f;
+    //float jumpingHeight = 10f;
+    //float speed = 50f;
     float laneChangeRange = 3f;
     float heightRange = 3f;
     float jumpLerpDuration = 0.5f;
@@ -25,8 +25,6 @@ public class Movement : MonoBehaviour
     bool isLaneChanging = false;
     bool isRolling = false;
     bool isJumping = false;
-    bool onCenter;
-    bool onSideLane;
 
     Swipe swipe;
 
@@ -47,7 +45,6 @@ public class Movement : MonoBehaviour
     void Update()
     {
         ProcessMovement();
-        PlayerCondition();
     }
 
     void ProcessMovement()
@@ -97,7 +94,6 @@ public class Movement : MonoBehaviour
     {
         transform.Translate(forwardMove * Time.deltaTime, Space.Self);
     }
-
 
     IEnumerator Jump()
     {
@@ -196,29 +192,6 @@ public class Movement : MonoBehaviour
         //rotating = false;
     }
 
-    void PlayerCondition()
-    {
-        if(Equal(transform.position.x, 0f, 0.1f) )
-        {
-            onCenter = true;
-        }
-
-        else if (!Equal(transform.position.x, 0f, 0.1f))
-        {
-            onCenter = false;
-        }
-
-        if (Equal(transform.position.x, 3f, 0.1f) || Equal(transform.position.x, -3f, 0.1f))
-        {
-            onSideLane = true;
-        }
-
-        else if( !Equal(transform.position.x, 3f, 0.1f) && !Equal(transform.position.x, -3f, 0.1f))
-        {
-            onSideLane = false;
-        }
-
-    }
 
     bool Equal(float a, float b, float tolerance)
     {
