@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerUtilities : MonoBehaviour
 {
     public bool isGrounded = false;
     public static PlayerUtilities playerUtilityInstance;
+
+    private float hold;
 
     private Transform _playerLocation;
 
@@ -17,6 +17,7 @@ public class PlayerUtilities : MonoBehaviour
 
     public bool WhichLane(float lane)
     {
+        hold = lane;
         if (_playerLocation.position.x == lane)
             return true;
         else

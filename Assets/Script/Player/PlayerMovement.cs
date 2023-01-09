@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsJumping { get => _isJumping; }
     public bool IsRolling { get => _isRolling; }
 
+    private float _initPos;
+
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -79,11 +81,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     private void ManageMovement()
     {
         Run();
+
+        Debug.Log("LeftLane: " + PlayerUtilities.playerUtilityInstance.WhichLane(-3));
+        Debug.Log("RightLane: " + PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane));
 
         // Left
         if (_isLeftSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
@@ -127,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     private void MoveRight()
     {
         _isMoving = true;
-
+        
         // If player is on left lane, move to center
         if (PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
             Move(centerPoint);
