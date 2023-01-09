@@ -32,6 +32,9 @@ public class PlayerUtilities : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
             isGrounded = true;
+        else
+            isGrounded = false;
+
     }
 
     public void OnCollisionExit(Collision collision)
