@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider _capsuleCollider;
     private Rigidbody _rigidBody;
 
+    #region Control Parameters
     [SerializeField]
     private float run = 1f;
     [SerializeField]
@@ -18,7 +19,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveDuration = 1f;
     [SerializeField]
-    private float jumpPower = 7.5f;
+    private float _jumpLerpDuration = 0.34f;
+    [SerializeField]
+    private float _jumpRange = 2f;
+    #endregion
+
 
     private float _leftLane;
     private float _rightLane;
@@ -36,9 +41,10 @@ public class PlayerMovement : MonoBehaviour
 
     private float _initPos;
 
+
     private void Awake()
     {
-        _transform = GetComponent<Transform>();
+        _transform = transform;
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _rigidBody = GetComponent<Rigidbody>();
 
@@ -69,25 +75,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        ManageMovement();
-    }
+        
 
-    private void FixedUpdate()
-    {
-        if (_isJumping)
-        {
-            _isJumping = false;
-            Jump();
-        }
+        ManageMovement();
     }
 
     private void ManageMovement()
     {
-        Run();
-
-        Debug.Log("LeftLane: " + PlayerUtilities.playerUtilityInstance.WhichLane(-3));
-        Debug.Log("RightLane: " + PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane));
-
+        if (!GameManager.sharedInstance.IsGameOver)
+        {
+            Run();
+        }
+        
         // Left
         if (_isLeftSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
             MoveLeft();
@@ -95,10 +94,13 @@ public class PlayerMovement : MonoBehaviour
         else if (_isRightSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane))
             MoveRight();
         // Jump
-        else if (_isUpSwipe && !_isRolling)
-            _isJumping = true;
+        else if (_isUpSwipe && !_isRolling && !_isJumping)
+        {
+            StartCoroutine(Jump());
+        }
+            
         // Roll
-        else if (_isDownSwipe && !_isRolling && PlayerUtilities.playerUtilityInstance.isGrounded)
+        else if (_isDownSwipe && !_isRolling && GameManager.sharedInstance.IsGrounded)
             StartCoroutine(Roll());
 
         else
@@ -144,13 +146,25 @@ public class PlayerMovement : MonoBehaviour
         _transform.DOMoveX(destination, moveDuration).OnComplete(() => _isMoving = false);
     }
 
-    private void Jump()
+    private IEnumerator Jump()
     {
-        if (PlayerUtilities.playerUtilityInstance.isGrounded)
+        _isJumping = true;
+
+        float timeElapsed = 0f;
+        float initialHeight = _transform.position.y;
+        float finalHeight = _jumpRange;
+        float hold;
+
+        // Increase height till 3 unit
+        while (timeElapsed < _jumpLerpDuration)
         {
-            _rigidBody.velocity = Vector3.up * jumpPower;
+            timeElapsed += Time.deltaTime;
+            hold = Mathf.Lerp(initialHeight, finalHeight, timeElapsed / _jumpLerpDuration);
+            transform.position = new Vector3(transform.position.x, hold, transform.position.z);
+            yield return null;
         }
 
+        _isJumping = false;
         _isUpSwipe = false;
     }
 
@@ -176,6 +190,9 @@ public class PlayerMovement : MonoBehaviour
 
         _isRolling = false;
     }
+
+
+    
 
    
 

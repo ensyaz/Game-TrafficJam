@@ -1299,6 +1299,9 @@ GameObject:
   - component: {fileID: 6102418469248619949}
   - component: {fileID: 1772061099687978132}
   - component: {fileID: -8849999620985722874}
+  - component: {fileID: 217460814994628906}
+  - component: {fileID: 8557845894843963316}
+  - component: {fileID: 508309463967977372}
   - component: {fileID: 2205786819492847998}
   - component: {fileID: -3052560158443663338}
   - component: {fileID: 3740294639966430387}
@@ -1358,7 +1361,8 @@ MonoBehaviour:
   laneRange: 3
   centerPoint: 0
   moveDuration: 1
-  jumpPower: 7.5
+  _jumpLerpDuration: 1
+  _jumpRange: 2.5
 --- !u!114 &-8849999620985722874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,6 +1376,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
+--- !u!114 &217460814994628906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843475254079758782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a996dab4c20909f459f8e5c8b7e5eb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8557845894843963316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843475254079758782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de951251838d354d8d95c04ebe021bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentCollider: {fileID: 3740294639966430387}
+  _animator: {fileID: 2205786819492847998}
+  _parentRigidBody: {fileID: -3052560158443663338}
+  IsRagdollEnabled: 0
+--- !u!114 &508309463967977372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843475254079758782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3795cedec923a4a439c03584dd3876a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 1
 --- !u!95 &2205786819492847998
 Animator:
   serializedVersion: 4

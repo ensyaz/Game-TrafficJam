@@ -17,7 +17,6 @@ public class PlayerUtilities : MonoBehaviour
 
     public bool WhichLane(float lane)
     {
-        hold = lane;
         if (_playerLocation.position.x == lane)
             return true;
         else
@@ -29,20 +28,7 @@ public class PlayerUtilities : MonoBehaviour
         return (Mathf.Abs(a - b) <= tolerance);
     }
 
-    public void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = true;
-        else
-            isGrounded = false;
-
-    }
-
-    public void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = false;
-    }
+    
 
 
 

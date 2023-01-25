@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
@@ -7,26 +5,47 @@ public class PlayerAnimationController : MonoBehaviour
     private PlayerMovement _playerMovement;
     private Animator _animator;
 
-    private int _isJumpingHash;
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-
-        _isJumpingHash = _animator.GetParameter(0).GetHashCode();
     }
 
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-        
+    }
+
+    private void Update()
+    {
+        SetAnimations();
     }
 
     private void SetAnimations()
     {
-        if (_playerMovement.IsJumping)
-            _animator.SetBool(_isJumpingHash, true); 
+        SetJumpAnimation();
+        SetRollAnimation();
+    }
 
+    private void SetJumpAnimation()
+    {
+        if (_playerMovement.IsJumping)
+        {
+            _animator.SetBool("isJump", true);
+        }
+            
+        else
+        {
+            _animator.SetBool("isJump", false);
+        }
+            
+    }
+
+    private void SetRollAnimation()
+    {
+        if (_playerMovement.IsRolling)
+            _animator.SetBool("isRoll", true);
+        else
+            _animator.SetBool("isRoll", false);
     }
 
 
