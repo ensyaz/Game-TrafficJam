@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager sharedInstance;
+
     public delegate void OnGameOver();
     public event OnGameOver OnGameOverEvent;
 
-    public static GameManager sharedInstance;
     private bool gameOver;
     private bool grounded;
 

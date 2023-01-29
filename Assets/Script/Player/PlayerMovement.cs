@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isRolling = false;
     private bool _isJumping = false;
     private float _rollDuration = 0.95f;
+    private bool _isGameOver = false;
 
     public bool IsJumping { get => _isJumping; }
     public bool IsRolling { get => _isRolling; }
@@ -58,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         InputManager.OnSwipeDown += OnDownSwipe;
         InputManager.OnSwipeLeft += OnLeftSwipe;
         InputManager.OnSwipeRight += OnRightSwipe;
+        GameManager.sharedInstance.OnGameOverEvent += GameOver;
     }
 
     private void OnDisable()
@@ -66,27 +68,25 @@ public class PlayerMovement : MonoBehaviour
         InputManager.OnSwipeDown -= OnDownSwipe;
         InputManager.OnSwipeLeft -= OnLeftSwipe;
         InputManager.OnSwipeRight -= OnRightSwipe;
+        GameManager.sharedInstance.OnGameOverEvent -= GameOver;
     }
 
     private void OnLeftSwipe() => _isLeftSwipe = true; 
     private void OnRightSwipe() => _isRightSwipe = true;
     private void OnDownSwipe() => _isDownSwipe = true;
     private void OnUpSwipe() => _isUpSwipe = true;
+    private void GameOver() => _isGameOver = true;
 
     private void Update()
     {
-        
-
+        if (_isGameOver) return;
         ManageMovement();
     }
 
     private void ManageMovement()
     {
-        if (!GameManager.sharedInstance.IsGameOver)
-        {
-            Run();
-        }
-        
+        Run();
+
         // Left
         if (_isLeftSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
             MoveLeft();

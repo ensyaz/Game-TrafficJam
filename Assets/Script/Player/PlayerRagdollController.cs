@@ -17,7 +17,7 @@ public class PlayerRagdollController : MonoBehaviour
     }
 
     private void OnEnable() => GameManager.sharedInstance.OnGameOverEvent += OnObstacleHit;
-    private void OnDisable() => GameManager.sharedInstance.OnGameOverEvent += OnObstacleHit;
+    private void OnDisable() => GameManager.sharedInstance.OnGameOverEvent -= OnObstacleHit;
 
     private void Start()
     {
