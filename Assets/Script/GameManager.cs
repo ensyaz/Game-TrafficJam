@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour
     public delegate void OnGameOver();
     public event OnGameOver OnGameOverEvent;
 
-    private bool gameOver;
-    private bool grounded;
+    private bool _gameOver;
+    private bool _grounded;
+    private int _goldCount;
 
-    public bool IsGameOver { get => gameOver; set => gameOver = value; }
-    public bool IsGrounded { get => grounded; set => grounded = value; }
+    public bool IsGameOver { get => _gameOver; set => _gameOver = value; }
+    public bool IsGrounded { get => _grounded; set => _grounded = value; }
+    public int GoldCount { get => _goldCount; set => _goldCount = value; }
 
     private void Awake()
     {

@@ -20,12 +20,12 @@ public class GoldMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _goldCollisionInstance.OnCollectEvent += KillTweener;
+        GoldCollisionController.OnCollectEvent += KillTweener;
     }
 
     private void OnDisable()
     {
-        _goldCollisionInstance.OnCollectEvent -= KillTweener;
+        GoldCollisionController.OnCollectEvent -= KillTweener;
     }
 
     private void Start()

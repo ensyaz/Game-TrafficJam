@@ -7,7 +7,11 @@ public class PlayerCollisionController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
+        {
             GameManager.sharedInstance.IsGameOver = true;
+            SoundManager.sharedInstance.PlaySound(SoundManager.Sound.PlayerCollision);
+        }
+            
     }
 
     public void OnCollisionStay(Collision collision)
