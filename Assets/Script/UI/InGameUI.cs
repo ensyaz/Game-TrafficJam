@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameUI : MonoBehaviour
 {
 
     [SerializeField]
     private TextMeshProUGUI _goldCountText;
-
 
     private void OnEnable()
     {
@@ -23,6 +21,11 @@ public class InGameUI : MonoBehaviour
     private void SetGoldAmount()
     {
         _goldCountText.text = GameManager.sharedInstance.GoldCount.ToString();
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
