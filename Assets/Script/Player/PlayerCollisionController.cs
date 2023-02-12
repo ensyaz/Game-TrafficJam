@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
 {
+    
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -24,5 +26,18 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
             GameManager.sharedInstance.IsGrounded = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Collectable"))
+        {
+            other.gameObject.GetComponent<GoldParticleEffectController>().PlayParticle();
+            GameManager.sharedInstance.GoldCount += 1;
+            EventManager.OnCollectEvent?.Invoke();
+            SoundManager.sharedInstance.PlaySound(SoundManager.Sound.GoldCollect);
+            Destroy(other.gameObject);
+        }
+
     }
 }

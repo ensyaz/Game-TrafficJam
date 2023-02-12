@@ -81,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isGameOver) return;
         ManageMovement();
+
+        
     }
 
     private void ManageMovement()
@@ -110,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
             _isDownSwipe = false;
             _isUpSwipe = false;
         }
+
     }
 
     private void Run()
@@ -171,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Roll()
     {
+        Debug.Log("test");
         _isRolling = true;
         float timeElapsed = 0;
 

@@ -10,12 +10,12 @@ public class InGameUI : MonoBehaviour
 
     private void OnEnable()
     {
-        GoldCollisionController.OnCollectEvent += SetGoldAmount;
+        EventManager.OnCollectEvent += SetGoldAmount;
     }
 
     private void OnDisable()
     {
-        GoldCollisionController.OnCollectEvent -= SetGoldAmount;
+        EventManager.OnCollectEvent -= SetGoldAmount;
     }
 
     private void SetGoldAmount()
