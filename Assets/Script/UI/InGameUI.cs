@@ -10,12 +10,12 @@ public class InGameUI : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.OnCollectEvent += SetGoldAmount;
+        EventManager.onCollectAction += SetGoldAmount;
     }
 
     private void OnDisable()
     {
-        EventManager.OnCollectEvent -= SetGoldAmount;
+        EventManager.onCollectAction -= SetGoldAmount;
     }
 
     private void SetGoldAmount()

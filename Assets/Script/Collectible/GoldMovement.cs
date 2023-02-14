@@ -6,26 +6,15 @@ public class GoldMovement : MonoBehaviour
 {
     [SerializeField]
     private float _moveOffset = 0.5f;
-    private Transform _transform;
-    private GoldCollisionController _goldCollisionInstance;
 
+    private Transform _transform;
     private Tweener _moveTween;
     private Tweener _rotateTween;
+
 
     private void Awake()
     {
         _transform = transform;
-        _goldCollisionInstance = GetComponent<GoldCollisionController>();
-    }
-
-    private void OnEnable()
-    {
-        EventManager.OnCollectEvent += KillTweener;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnCollectEvent -= KillTweener;
     }
 
     private void Start()
@@ -45,7 +34,7 @@ public class GoldMovement : MonoBehaviour
         _rotateTween = _transform.DORotate( new Vector3(0, 5f, 0) , 0.1f).SetLoops(-1, LoopType.Incremental);
     }
 
-    private void KillTweener()
+    public void KillTweener()
     {
         _moveTween.Kill();
         _rotateTween.Kill();

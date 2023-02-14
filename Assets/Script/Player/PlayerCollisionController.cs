@@ -32,9 +32,10 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            other.gameObject.GetComponent<GoldParticleEffectController>().PlayParticle();
+            other.gameObject.GetComponent<GoldMovement>().KillTweener();
             GameManager.sharedInstance.GoldCount += 1;
-            EventManager.OnCollectEvent?.Invoke();
+            EventManager.onCollectAction?.Invoke();
+            EventManager.onCollectActionGameobject?.Invoke(other.gameObject);
             SoundManager.sharedInstance.PlaySound(SoundManager.Sound.GoldCollect);
             Destroy(other.gameObject);
         }
