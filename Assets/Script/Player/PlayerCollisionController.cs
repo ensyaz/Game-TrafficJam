@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
 {
-    
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             GameManager.sharedInstance.IsGameOver = true;
             SoundManager.sharedInstance.PlaySound(SoundManager.Sound.PlayerCollision);
-        }
-            
+        }    
     }
 
     public void OnCollisionStay(Collision collision)
@@ -32,13 +29,24 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            other.gameObject.GetComponent<GoldMovement>().KillTweener();
+            StartCoroutine(CollectableActivation(2f, other.gameObject));
+            //other.gameObject.GetComponent<GoldMovement>().KillTweener();
             GameManager.sharedInstance.GoldCount += 1;
             EventManager.onCollectAction?.Invoke();
             EventManager.onCollectActionGameobject?.Invoke(other.gameObject);
             SoundManager.sharedInstance.PlaySound(SoundManager.Sound.GoldCollect);
-            Destroy(other.gameObject);
         }
 
+        if (other.CompareTag("Section"))
+        {
+            EventManager.onCollisionSection?.Invoke(other.gameObject);
+        }
+    }
+
+    IEnumerator CollectableActivation(float time, GameObject obj)
+    {
+        obj.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(time);
+        obj.GetComponent<MeshRenderer>().enabled = true;
     }
 }
