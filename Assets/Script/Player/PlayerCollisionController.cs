@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
 {
+
+    private WaitForSeconds _delay;
+
+    private void Awake()
+    {
+        _delay = new WaitForSeconds(2f);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -29,8 +37,7 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            StartCoroutine(CollectableActivation(2f, other.gameObject));
-            //other.gameObject.GetComponent<GoldMovement>().KillTweener();
+            //StartCoroutine(DisapperCollectable(other.gameObject));
             GameManager.sharedInstance.GoldCount += 1;
             EventManager.onCollectAction?.Invoke();
             EventManager.onCollectActionGameobject?.Invoke(other.gameObject);
@@ -41,12 +48,5 @@ public class PlayerCollisionController : MonoBehaviour
         {
             EventManager.onCollisionSection?.Invoke(other.gameObject);
         }
-    }
-
-    IEnumerator CollectableActivation(float time, GameObject obj)
-    {
-        obj.GetComponent<MeshRenderer>().enabled = false;
-        yield return new WaitForSeconds(time);
-        obj.GetComponent<MeshRenderer>().enabled = true;
     }
 }
