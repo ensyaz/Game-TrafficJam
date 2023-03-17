@@ -39,7 +39,6 @@ public class SectionPool : MonoBehaviour
 
     private void DisableSection(GameObject obj)
     {
-
         foreach (GameObject section in sectionPool)
         {
             if (section == obj)

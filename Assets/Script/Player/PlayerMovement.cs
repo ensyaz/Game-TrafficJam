@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Transform _transform;
-    private CapsuleCollider _capsuleCollider;
-    private Rigidbody _rigidBody;
 
     #region Control Parameters
     [SerializeField]
-    private float run = 1f;
+    private float speed = 7f;
     [SerializeField]
     private float laneRange = 3f;
     [SerializeField]
@@ -24,9 +21,17 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpRange = 2f;
     #endregion
 
+    public bool IsJumping { get => _isJumping; }
+    public bool IsRolling { get => _isRolling; }
+
+    private Transform _transform;
+    private CapsuleCollider _capsuleCollider;
+    private Rigidbody _rigidBody;
 
     private float _leftLane;
     private float _rightLane;
+    private float _initPos;
+    private float _rollDuration = 0.95f;
     private bool _isMoving = false;
     private bool _isLeftSwipe = false;
     private bool _isRightSwipe = false;
@@ -34,21 +39,15 @@ public class PlayerMovement : MonoBehaviour
     private bool _isUpSwipe = false;
     private bool _isRolling = false;
     private bool _isJumping = false;
-    private float _rollDuration = 0.95f;
     private bool _isGameOver = false;
 
-    public bool IsJumping { get => _isJumping; }
-    public bool IsRolling { get => _isRolling; }
-
-    private float _initPos;
-
+    
 
     private void Awake()
     {
         _transform = transform;
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _rigidBody = GetComponent<Rigidbody>();
-
         _leftLane = -1 * laneRange;
         _rightLane = laneRange;
     }
@@ -60,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         InputManager.OnSwipeLeft += OnLeftSwipe;
         InputManager.OnSwipeRight += OnRightSwipe;
         GameManager.sharedInstance.OnGameOverEvent += GameOver;
+        GameManager.sharedInstance.OnSetSpeedJumpTimingEvent += SetSpeedJumpTiming;
     }
 
     private void OnDisable()
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         InputManager.OnSwipeLeft -= OnLeftSwipe;
         InputManager.OnSwipeRight -= OnRightSwipe;
         GameManager.sharedInstance.OnGameOverEvent -= GameOver;
+        GameManager.sharedInstance.OnSetSpeedJumpTimingEvent -= SetSpeedJumpTiming;
     }
 
     private void OnLeftSwipe() => _isLeftSwipe = true; 
@@ -76,13 +77,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnDownSwipe() => _isDownSwipe = true;
     private void OnUpSwipe() => _isUpSwipe = true;
     private void GameOver() => _isGameOver = true;
+    private void SetSpeedJumpTiming() { speed += 1f; _jumpLerpDuration -= 0.0125f;}
 
     private void Update()
     {
         if (_isGameOver) return;
         ManageMovement();
-
-        
     }
 
     private void ManageMovement()
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run()
     {
-        _transform.Translate(0, 0, run * Time.deltaTime);
+        _transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
     private void MoveLeft()
@@ -158,12 +158,17 @@ public class PlayerMovement : MonoBehaviour
         float finalHeight = _jumpRange;
         float hold;
 
-        // Increase height till 3 unit
+        // Increase height till the final height unit
         while (timeElapsed < _jumpLerpDuration)
         {
             timeElapsed += Time.deltaTime;
             hold = Mathf.Lerp(initialHeight, finalHeight, timeElapsed / _jumpLerpDuration);
             transform.position = new Vector3(transform.position.x, hold, transform.position.z);
+            yield return null;
+        }
+
+        while (!GameManager.sharedInstance.IsGrounded)
+        {
             yield return null;
         }
 

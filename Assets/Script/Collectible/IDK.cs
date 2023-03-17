@@ -24,17 +24,18 @@ public class IDK : MonoBehaviour
 
     private void DisappearRings(GameObject obj)
     {
-        //StartCoroutine(DisappearCollectable(obj));
-        obj.SetActive(false);
+        StartCoroutine(DisappearCollectable(obj));
     }
 
     IEnumerator DisappearCollectable(GameObject obj)
-    {     
+    {
         obj.GetComponent<MeshRenderer>().enabled = false;
+
         yield return _delay;
 
         if (!GameManager.sharedInstance.IsGameOver)
             obj.GetComponent<MeshRenderer>().enabled = true;
     }
+
 
 }
