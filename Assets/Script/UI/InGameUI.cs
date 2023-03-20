@@ -6,37 +6,25 @@ using UnityEngine.SceneManagement;
 public class InGameUI : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI finalScoreText;
+    [SerializeField]
+    private TextMeshProUGUI goldCountText;
+    [SerializeField]
+    private TextMeshProUGUI distanceText;
+
     [SerializeField]
     private Transform playerTransform;
 
     [SerializeField]
-    private GameObject button;
+    private GameObject gameOnUI;
     [SerializeField]
-    private GameObject goldImageObject;
-    [SerializeField]
-    private GameObject goldCountTextObject;
-    [SerializeField]
-    private GameObject distanceTextObject;
-    [SerializeField]
-    private GameObject finalScoreTextObject;
-
-    private TextMeshProUGUI _goldCountText;
-    private TextMeshProUGUI _distanceText;
+    private GameObject gameOverUI;
 
     private int _finalScore = 0;
-
-
-
+    private int _hold = 0;
     private float _timer = 0;
     private float _interval = 10000f;
-    private int _hold = 0;
-
-    private void Awake()
-    {
-        _goldCountText = goldCountTextObject.GetComponent<TextMeshProUGUI>();
-        _distanceText = distanceTextObject.GetComponent<TextMeshProUGUI>();
-    }
+    
 
     private void OnEnable()
     {
@@ -57,7 +45,7 @@ public class InGameUI : MonoBehaviour
 
     private void SetGoldAmount()
     {
-        _goldCountText.text = GameManager.sharedInstance.GoldCount.ToString();
+        goldCountText.text = GameManager.sharedInstance.GoldCount.ToString();
     }
 
     public void ReloadLevel()
@@ -67,7 +55,16 @@ public class InGameUI : MonoBehaviour
 
     private void SetDistanceText()
     {
-        _distanceText.text = ((int)playerTransform.position.z).ToString();
+        distanceText.text = ((int)playerTransform.position.z).ToString();
+    }
+
+    private void ShowScore()
+    {
+        gameOnUI.SetActive(false);
+        gameOverUI.SetActive(true);
+
+        CalculateScore();
+        StartCoroutine(FinalScore());
     }
 
     private void CalculateScore()
@@ -75,25 +72,17 @@ public class InGameUI : MonoBehaviour
         _finalScore = (int)playerTransform.position.z + GameManager.sharedInstance.GoldCount;
     }
 
-    private void ShowScore()
-    {
-        goldImageObject.SetActive(false);
-        goldCountTextObject.SetActive(false);
-        distanceTextObject.SetActive(false);
-        finalScoreTextObject.SetActive(true);
-        CalculateScore();
-        StartCoroutine(FinalScore());
-    }
-
     private IEnumerator FinalScore()
     {
-        if (_hold != _finalScore)
+        if (_hold != _finalScore + 1)
         {
-            scoreText.text = _hold.ToString();
+            finalScoreText.text = _hold.ToString();
             _hold += 1;
             yield return null;
         }
     }
+
+
 
 
 
