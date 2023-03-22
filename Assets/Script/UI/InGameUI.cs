@@ -19,6 +19,8 @@ public class InGameUI : MonoBehaviour
     private GameObject gameOnUI;
     [SerializeField]
     private GameObject gameOverUI;
+    [SerializeField]
+    private GameObject backgroundBlur;
 
     private int _finalScore = 0;
     private int _hold = 0;
@@ -62,7 +64,7 @@ public class InGameUI : MonoBehaviour
     {
         gameOnUI.SetActive(false);
         gameOverUI.SetActive(true);
-
+        backgroundBlur.SetActive(true);
         CalculateScore();
         StartCoroutine(FinalScore());
     }
@@ -81,6 +83,8 @@ public class InGameUI : MonoBehaviour
             yield return null;
         }
     }
+
+
 
 
 
