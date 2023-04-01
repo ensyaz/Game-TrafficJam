@@ -6,27 +6,19 @@ using UnityEngine.SceneManagement;
 public class InGameUI : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI finalScoreText;
-    [SerializeField]
     private TextMeshProUGUI goldCountText;
     [SerializeField]
     private TextMeshProUGUI distanceText;
 
     [SerializeField]
-    private Transform playerTransform;
-
-    [SerializeField]
-    private GameObject gameOnUI;
+    private GameObject inGameUI;
     [SerializeField]
     private GameObject gameOverUI;
     [SerializeField]
-    private GameObject backgroundBlur;
+    private GameObject settingsUI;
 
-    private int _finalScore = 0;
-    private int _hold = 0;
-    private float _timer = 0;
-    private float _interval = 10000f;
-    
+    [SerializeField]
+    private Transform playerTransform;
 
     private void OnEnable()
     {
@@ -45,44 +37,28 @@ public class InGameUI : MonoBehaviour
         SetDistanceText();
     }
 
-    private void SetGoldAmount()
-    {
-        goldCountText.text = GameManager.sharedInstance.GoldCount.ToString();
-    }
+    private void SetDistanceText() => distanceText.text = ((int)playerTransform.position.z).ToString();
+    private void SetGoldAmount() => goldCountText.text = GameManager.sharedInstance.GoldCount.ToString();
 
-    public void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void SetDistanceText()
-    {
-        distanceText.text = ((int)playerTransform.position.z).ToString();
-    }
 
     private void ShowScore()
     {
-        gameOnUI.SetActive(false);
+        inGameUI.SetActive(false);
+        GameManager.sharedInstance.finalScore = SetFinalScore();
         gameOverUI.SetActive(true);
-        backgroundBlur.SetActive(true);
-        CalculateScore();
-        StartCoroutine(FinalScore());
     }
 
-    private void CalculateScore()
+    private int SetFinalScore() 
     {
-        _finalScore = (int)playerTransform.position.z + GameManager.sharedInstance.GoldCount;
+        return (int)playerTransform.position.z + GameManager.sharedInstance.GoldCount;
     }
 
-    private IEnumerator FinalScore()
-    {
-        if (_hold != _finalScore + 1)
-        {
-            finalScoreText.text = _hold.ToString();
-            _hold += 1;
-            yield return null;
-        }
-    }
+    public void SettingsButton() => settingsUI.SetActive(true);
+
+
+    
+
+    
 
 
 

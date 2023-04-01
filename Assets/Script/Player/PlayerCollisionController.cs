@@ -5,19 +5,12 @@ using UnityEngine;
 public class PlayerCollisionController : MonoBehaviour
 {
 
-    private WaitForSeconds _delay;
-
-    private void Awake()
-    {
-        _delay = new WaitForSeconds(2f);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             GameManager.sharedInstance.IsGameOver = true;
-            SoundManager.sharedInstance.PlaySound(SoundManager.Sound.PlayerCollision);
+            SoundManager.sharedInstance.playerCollisionAudioSource.Play();
         }    
     }
 
@@ -37,11 +30,10 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            //StartCoroutine(DisapperCollectable(other.gameObject));
             GameManager.sharedInstance.GoldCount += 1;
             EventManager.onCollectAction?.Invoke();
             EventManager.onCollectActionGameobject?.Invoke(other.gameObject);
-            SoundManager.sharedInstance.PlaySound(SoundManager.Sound.GoldCollect);
+            SoundManager.sharedInstance.goldAudioSource.Play();
         }
 
         if (other.CompareTag("Section"))

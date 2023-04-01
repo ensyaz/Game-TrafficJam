@@ -20,10 +20,12 @@ public class GameManager : MonoBehaviour
     private int _goldCount;
     private float _speedIncreaseRate = 150f;
     private float _initialPosition = 0;
+    private float _finalScore;
 
     public bool IsGameOver { get => _gameOver; set => _gameOver = value; }
     public bool IsGrounded { get => _grounded; set => _grounded = value; }
     public int GoldCount { get => _goldCount; set => _goldCount = value; }
+    public float finalScore { get => _finalScore; set => _finalScore = value; }
 
     private void Awake()
     {
