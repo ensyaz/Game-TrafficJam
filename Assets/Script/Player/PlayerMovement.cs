@@ -14,11 +14,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float centerPoint = 0f;
     [SerializeField]
-    private float moveDuration = 1f;
+    private float moveDuration = 0.5f;
     [SerializeField]
-    private float _jumpLerpDuration = 0.34f;
+    private float _jumpLerpDuration = 0.5f;
     [SerializeField]
-    private float _jumpRange = 2f;
+    private float _jumpRange = 1.75f;
     #endregion
 
     public bool IsJumping { get => _isJumping; }
@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     private float _rightLane;
     private float _initPos;
     private float _rollDuration = 0.95f;
+    private float _speedIncreaseRate = 1f;
+    private float _jumpDurationDecreaseRate = 0.0125f;
+    private float _moveDurationDecreaseRate = 0.000111f;
     private bool _isMoving = false;
     private bool _isLeftSwipe = false;
     private bool _isRightSwipe = false;
@@ -77,12 +80,15 @@ public class PlayerMovement : MonoBehaviour
     private void OnDownSwipe() => _isDownSwipe = true;
     private void OnUpSwipe() => _isUpSwipe = true;
     private void GameOver() => _isGameOver = true;
-    private void SetSpeedJumpTiming() { speed += 1f; _jumpLerpDuration -= 0.0125f;}
+    private void SetSpeedJumpTiming() { speed += _speedIncreaseRate; 
+                                        _jumpLerpDuration -= _jumpDurationDecreaseRate; 
+                                        moveDuration -= _moveDurationDecreaseRate; }
 
     private void Update()
     {
         if (_isGameOver) return;
         ManageMovement();
+
     }
 
     private void ManageMovement()
@@ -91,12 +97,20 @@ public class PlayerMovement : MonoBehaviour
 
         // Left
         if (_isLeftSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
+        {
             MoveLeft();
+            Debug.Log("Entered left lane that many time");
+        }
+            
         // Right
-        else if (_isRightSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane))
+        if (_isRightSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane))
+        {
             MoveRight();
+            Debug.Log("Entered right lane that many time");
+        }
+            
         // Jump
-        else if (_isUpSwipe && !_isRolling && !_isJumping)
+        if (_isUpSwipe && !_isRolling && !_isJumping)
         {
             StartCoroutine(Jump());
         }

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private bool _gameOver;
     private bool _grounded;
     private int _goldCount;
-    private float _speedIncreaseRate = 150f;
+    private float _paramChangeRange = 150f;
     private float _initialPosition = 0;
     private float _finalScore;
 
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void SetSpeedJumpTiming()
     {
-        if (playerTransform.position.z - _initialPosition >= _speedIncreaseRate)
+        if (playerTransform.position.z - _initialPosition >= _paramChangeRange)
         {
             OnSetSpeedJumpTimingEvent?.Invoke();
             _initialPosition = playerTransform.position.z;   

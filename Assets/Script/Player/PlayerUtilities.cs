@@ -11,13 +11,13 @@ public class PlayerUtilities : MonoBehaviour
 
     private void Awake()
     {
-        _playerLocation = GetComponent<Transform>();
+        _playerLocation = transform;
         playerUtilityInstance = this;
     }
 
     public bool WhichLane(float lane)
     {
-        if (_playerLocation.position.x == lane)
+        if (Mathf.Round(_playerLocation.position.x) == lane)
             return true;
         else
             return false;
