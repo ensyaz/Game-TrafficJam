@@ -99,14 +99,12 @@ public class PlayerMovement : MonoBehaviour
         if (_isLeftSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_leftLane))
         {
             MoveLeft();
-            Debug.Log("Entered left lane that many time");
         }
             
         // Right
         if (_isRightSwipe && !_isMoving && !PlayerUtilities.playerUtilityInstance.WhichLane(_rightLane))
         {
             MoveRight();
-            Debug.Log("Entered right lane that many time");
         }
             
         // Jump
