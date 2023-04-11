@@ -14,7 +14,7 @@ public class GameoverUI : MonoBehaviour
     {
         StartCoroutine(FinalScore());
     }
-
+    // To display the score
     private IEnumerator FinalScore()
     {
         while (_hold != GameManager.sharedInstance.finalScore + 1)

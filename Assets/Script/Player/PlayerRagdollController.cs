@@ -43,11 +43,6 @@ public class PlayerRagdollController : MonoBehaviour
         }
     }
 
-    public void SetRagdollButton()
-    {
-        EnableRagdoll();
-    }
-
     private void EnableRagdoll()
     {
         _animator.enabled = false;
@@ -61,7 +56,7 @@ public class PlayerRagdollController : MonoBehaviour
         SetKinematicRigidBodies(true);
         SetColliders(false);
     }
-
+    // Whether to enable or disable the rigidbodies of player
     private void SetKinematicRigidBodies(bool value)
     {
         Rigidbody[] rigidBodies = GetComponentsInChildren<Rigidbody>();
@@ -74,7 +69,7 @@ public class PlayerRagdollController : MonoBehaviour
 
         _parentRigidBody.isKinematic = !value;
     }
-
+    // Whether to enable or disable the colliders of player
     private void SetColliders(bool value)
     {
         Collider[] colliders = GetComponentsInChildren<Collider>();

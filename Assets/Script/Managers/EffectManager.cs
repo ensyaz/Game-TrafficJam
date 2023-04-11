@@ -22,7 +22,7 @@ public class EffectManager : MonoBehaviour
     {
         EventManager.onCollectActionGameobject -= PlayGoldEffect;
     }
-
+    // To play the effect when a gold collected
     private void PlayGoldEffect(GameObject gameObject)
     {
         _goldCollectEffectTransform.position = gameObject.transform.position;

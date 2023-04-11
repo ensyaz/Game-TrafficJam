@@ -14,7 +14,7 @@ public class PlayerUtilities : MonoBehaviour
         _playerLocation = transform;
         playerUtilityInstance = this;
     }
-
+    // To decide which lane player is
     public bool WhichLane(float lane)
     {
         if (Mathf.Round(_playerLocation.position.x) == lane)

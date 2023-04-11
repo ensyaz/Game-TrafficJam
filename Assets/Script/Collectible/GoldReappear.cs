@@ -14,20 +14,20 @@ public class GoldReappear : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.onCollectActionGameobject += DisappearRings;
+        EventManager.onCollectActionGameobject += DisappearGolds;
     }
 
     private void OnDisable()
     {
-        EventManager.onCollectActionGameobject -= DisappearRings;
+        EventManager.onCollectActionGameobject -= DisappearGolds;
     }
-
-    private void DisappearRings(GameObject obj)
+    // Disappear the golds for 2 seconds when they get collected
+    private void DisappearGolds(GameObject obj)
     {
         StartCoroutine(DisappearCollectable(obj));
     }
 
-    IEnumerator DisappearCollectable(GameObject obj)
+    private IEnumerator DisappearCollectable(GameObject obj)
     {
         obj.GetComponent<MeshRenderer>().enabled = false;
 

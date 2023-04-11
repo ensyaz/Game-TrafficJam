@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region State Parameters
+    public bool IsJumping { get => _isJumping; }
+    public bool IsRolling { get => _isRolling; }
+    #endregion
 
     #region Control Parameters
     [SerializeField]
@@ -21,20 +25,18 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpRange = 1.75f;
     #endregion
 
-    public bool IsJumping { get => _isJumping; }
-    public bool IsRolling { get => _isRolling; }
-
     private Transform _transform;
     private CapsuleCollider _capsuleCollider;
     private Rigidbody _rigidBody;
 
     private float _leftLane;
     private float _rightLane;
-    private float _initPos;
     private float _rollDuration = 0.95f;
     private float _speedIncreaseRate = 1f;
     private float _jumpDurationDecreaseRate = 0.0125f;
     private float _moveDurationDecreaseRate = 0.000111f;
+
+    #region State Parameters
     private bool _isMoving = false;
     private bool _isLeftSwipe = false;
     private bool _isRightSwipe = false;
@@ -43,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _isRolling = false;
     private bool _isJumping = false;
     private bool _isGameOver = false;
+    #endregion
 
-    
 
     private void Awake()
     {

@@ -13,13 +13,13 @@ public class PlayerCollisionController : MonoBehaviour
             SoundManager.sharedInstance.playerCollisionAudioSource.Play();
         }    
     }
-
+    // Whether player is on ground or not
     public void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
             GameManager.sharedInstance.IsGrounded = true;
     }
-
+    // Whether player is on ground or not
     public void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -28,6 +28,7 @@ public class PlayerCollisionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // When player collide with gold
         if (other.CompareTag("Collectable"))
         {
             GameManager.sharedInstance.GoldCount += 1;
@@ -35,7 +36,7 @@ public class PlayerCollisionController : MonoBehaviour
             EventManager.onCollectActionGameobject?.Invoke(other.gameObject);
             SoundManager.sharedInstance.goldAudioSource.Play();
         }
-
+        // When player collide with section collider in order to disable previous section
         if (other.CompareTag("Section"))
         {
             EventManager.onCollisionSection?.Invoke(other.gameObject);

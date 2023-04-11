@@ -9,21 +9,25 @@ public class SoundManager : MonoBehaviour
         Environment,
         Background
     }
-
+    // Singleton
     public static SoundManager sharedInstance;
 
+    #region Audio Sources
     public AudioSource goldAudioSource;
     public AudioSource trafficSoundAudioSource;
     public AudioSource citySoundAudioSource;
     public AudioSource playerCollisionAudioSource;
     public AudioSource backgroundAudioSource;
+    #endregion
 
+    #region Audio Indexes
     private int goldAudioIndex = 0;
     private int playerCollisionAudioIndex = 1;
     private int trafficAudioIndex = 2;
     private int cityAudioIndex = 3;
     private int backgroundAudioIndex = 4;
-    
+    #endregion
+
     private void Awake()
     {
         if (sharedInstance != null)
@@ -33,6 +37,7 @@ public class SoundManager : MonoBehaviour
         }
 
         sharedInstance = this;
+        // To transfer sound level data to reloaded scene
         DontDestroyOnLoad(gameObject);
     }
 

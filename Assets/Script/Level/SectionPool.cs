@@ -24,7 +24,7 @@ public class SectionPool : MonoBehaviour
         EventManager.onCollisionSection -= DisableSection;
         EventManager.onCollisionSection -= EnableSection;
     }
-
+    // Enable the next section
     private void EnableSection(GameObject obj)
     {
         _currentSectionIndex += 1;
@@ -36,7 +36,7 @@ public class SectionPool : MonoBehaviour
         sectionPool[_currentSectionIndex].transform.position = new Vector3(0, 0, _sectionLenght * _sectionLocationIndex);
         sectionPool[_currentSectionIndex].SetActive(true);
     }
-
+    // Disable the previous section
     private void DisableSection(GameObject obj)
     {
         foreach (GameObject section in sectionPool)

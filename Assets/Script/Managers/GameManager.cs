@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Singleton
     public static GameManager sharedInstance;
 
+    public bool IsGameOver { get => _gameOver; set => _gameOver = value; }
+    public bool IsGrounded { get => _grounded; set => _grounded = value; }
+    public int GoldCount { get => _goldCount; set => _goldCount = value; }
+    public float finalScore { get => _finalScore; set => _finalScore = value; }
+
+    #region Events
     public delegate void OnGameOver();
     public event OnGameOver OnGameOverEvent;
-
     public delegate void OnSetSpeedJumpTiming();
     public event OnSetSpeedJumpTiming OnSetSpeedJumpTimingEvent;
+    #endregion
 
     [SerializeField]
     private Transform playerTransform;
@@ -22,10 +29,7 @@ public class GameManager : MonoBehaviour
     private float _initialPosition = 0;
     private float _finalScore;
 
-    public bool IsGameOver { get => _gameOver; set => _gameOver = value; }
-    public bool IsGrounded { get => _grounded; set => _grounded = value; }
-    public int GoldCount { get => _goldCount; set => _goldCount = value; }
-    public float finalScore { get => _finalScore; set => _finalScore = value; }
+    
 
     private void Awake()
     {
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
         SetSpeedJumpTiming();
     }
 
+    // Increase and decrease the speed of player and jumping duration according to distance
     private void SetSpeedJumpTiming()
     {
         if (playerTransform.position.z - _initialPosition >= _paramChangeRange)
@@ -48,14 +53,4 @@ public class GameManager : MonoBehaviour
             _initialPosition = playerTransform.position.z;   
         }
     }
-
- 
-
-
-
-
-
-
-
-
 }
