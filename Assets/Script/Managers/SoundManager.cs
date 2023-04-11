@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
     {
         InitAudioSource();
     }
-
+    // Initialize audio sources
     private void InitAudioSource()
     {
         ASGold();
@@ -60,6 +60,7 @@ public class SoundManager : MonoBehaviour
         goldAudioSource = gameObject.AddComponent<AudioSource>();
         goldAudioSource.playOnAwake = false;
         goldAudioSource.clip = SoundAssets.sharedInstance.soundAudioClipArray[goldAudioIndex].audioClip;
+        goldAudioSource.volume = SoundAssets.sharedInstance.soundAudioClipArray[goldAudioIndex].soundVolume;
     }
 
     private void ASPlayerCollision()
@@ -67,6 +68,7 @@ public class SoundManager : MonoBehaviour
         playerCollisionAudioSource = gameObject.AddComponent<AudioSource>();
         playerCollisionAudioSource.playOnAwake = false;
         playerCollisionAudioSource.clip = SoundAssets.sharedInstance.soundAudioClipArray[playerCollisionAudioIndex].audioClip;
+        playerCollisionAudioSource.volume = SoundAssets.sharedInstance.soundAudioClipArray[playerCollisionAudioIndex].soundVolume;
     }
     
     private void ASTraffic()
@@ -74,6 +76,7 @@ public class SoundManager : MonoBehaviour
         trafficSoundAudioSource = gameObject.AddComponent<AudioSource>();
         trafficSoundAudioSource.loop = true;
         trafficSoundAudioSource.clip = SoundAssets.sharedInstance.soundAudioClipArray[trafficAudioIndex].audioClip;
+        trafficSoundAudioSource.volume = SoundAssets.sharedInstance.soundAudioClipArray[trafficAudioIndex].soundVolume;
         trafficSoundAudioSource.Play();
     }
 
@@ -82,6 +85,7 @@ public class SoundManager : MonoBehaviour
         citySoundAudioSource = gameObject.AddComponent<AudioSource>();
         citySoundAudioSource.loop = true;
         citySoundAudioSource.clip = SoundAssets.sharedInstance.soundAudioClipArray[cityAudioIndex].audioClip;
+        citySoundAudioSource.volume = SoundAssets.sharedInstance.soundAudioClipArray[cityAudioIndex].soundVolume;
         citySoundAudioSource.Play();
     }
 
@@ -90,6 +94,7 @@ public class SoundManager : MonoBehaviour
         backgroundAudioSource = gameObject.AddComponent<AudioSource>();
         backgroundAudioSource.loop = true;
         backgroundAudioSource.clip = SoundAssets.sharedInstance.soundAudioClipArray[backgroundAudioIndex].audioClip;
+        backgroundAudioSource.volume = SoundAssets.sharedInstance.soundAudioClipArray[backgroundAudioIndex].soundVolume;
         backgroundAudioSource.Play();
     }
 }

@@ -17,5 +17,6 @@ public class SoundAssets : MonoBehaviour
     {
         public SoundManager.Sound sound;
         public AudioClip audioClip;
+        [Range(0f, 1f)] public float soundVolume;
     }
 }

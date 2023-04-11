@@ -15,7 +15,7 @@ public class PlayerCollisionController : MonoBehaviour
     }
     // Whether player is on ground or not
     public void OnCollisionStay(Collision collision)
-    {
+    {   
         if (collision.gameObject.CompareTag("Ground"))
             GameManager.sharedInstance.IsGrounded = true;
     }

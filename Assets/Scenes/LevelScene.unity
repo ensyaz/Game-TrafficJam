@@ -2829,14 +2829,19 @@ MonoBehaviour:
   soundAudioClipArray:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 8a4fdb6a4be72ef449a5d2e82e133049, type: 3}
+    soundVolume: 0.5
   - sound: 1
     audioClip: {fileID: 8300000, guid: aedd1963b292b3846b6791acbb2bf417, type: 3}
+    soundVolume: 0.5
   - sound: 2
     audioClip: {fileID: 8300000, guid: 6fed1839b42c45d44b5f6316e9cefc02, type: 3}
+    soundVolume: 0.5
   - sound: 2
     audioClip: {fileID: 8300000, guid: 5b0f76a7e43ae864dad4f1f1b20fd6ea, type: 3}
+    soundVolume: 0.5
   - sound: 3
-    audioClip: {fileID: 8300000, guid: d5bb27251ca669a48a761569780bf511, type: 3}
+    audioClip: {fileID: 8300000, guid: 21d23722d01a6d644bfe306d0fcfaeed, type: 3}
+    soundVolume: 0.5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,6 +3495,10 @@ PrefabInstance:
     - target: {fileID: 316995266319555403, guid: 960106422e00b314f845ce9646456503, type: 3}
       propertyPath: m_Name
       value: Section 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 316995266319555403, guid: 960106422e00b314f845ce9646456503, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7390564253979960115, guid: 960106422e00b314f845ce9646456503, type: 3}
       propertyPath: m_RootOrder
