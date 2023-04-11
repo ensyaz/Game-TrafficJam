@@ -15,5 +15,5 @@ Ragdoll mechanic is used for character's game over animation.
 ![GameRunnerRagdoll3GIF](https://user-images.githubusercontent.com/45393463/231175488-cae02861-5871-4913-a0ef-a193c6ffa0a2.gif)
 
 ## APK
-_https://drive.google.com/drive/folders/1WTUdjwFq0FjnubCBipxTYhOvQQ4Ar_pY?usp=sharing
+_https://drive.google.com/drive/folders/1WTUdjwFq0FjnubCBipxTYhOvQQ4Ar_pY?usp=sharing_
 
